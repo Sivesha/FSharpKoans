@@ -23,6 +23,8 @@ type Book =
 
 // and now, the tests:
 module ``07: On the Record`` =
+    open NUnit.Framework
+
     [<Test>]
     let ``01 Creating records`` () =
         let myRecord = { Title ="Steelheart";
@@ -48,9 +50,9 @@ module ``07: On the Record`` =
     [<Test>]
     let ``03 Decomposing with a record pattern`` () =
         let book = { Title="Dune"; Author="Frank Herbert"; Year=1965 }
-        let z = book
-        z |> should equal "Dune" // DO NOT use a . symbol in your answer
-        z |> should equal 1965 // DO NOT use a . symbol in your answer
+        let {Title = x; Year = y} = book
+        x |> should equal "Dune" // DO NOT use a . symbol in your answer
+        y |> should equal 1965 // DO NOT use a . symbol in your answer
 
     [<Test>]
     let ``04 Decomposing in a match expression`` () =
@@ -59,7 +61,7 @@ module ``07: On the Record`` =
             | { Name="Pikachu"; Attack=a } -> a/2
             | { Name="Raichu"; Attack=a } -> a/3
             | { Attack=blah; Defense=lol } -> (blah + lol) / 2
-        result |> should equal __
+        result |> should equal 30
 
     [<Test>]
     let ``05 Accessing record members using dot syntax`` () =
